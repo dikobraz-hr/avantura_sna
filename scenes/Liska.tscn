@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/entities/Liska.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/placeholder/liska_fox.png" id="2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_body"]
+radius = 14.0
+height = 36.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
+radius = 60.0
+
+[node name="Liska" type="CharacterBody2D" groups=["liska"]]
+script = ExtResource("1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_body")
+
+[node name="VisualPlaceholder" type="Sprite2D" parent="."]
+position = Vector2(0, -20)
+texture = ExtResource("2")
+; TODO(art): zamijeniti sa AnimatedSprite2D + SpriteFrames (8 smjerova x forme)
+; kad stigne finalni sprite sheet. Skripta Liska.gd vec sluzi 'modulate' i
+; 'direction_changed' signal pripremljene za tu zamjenu.
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1, 1)
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
